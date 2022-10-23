@@ -29,7 +29,7 @@ function redraw() {
     ctx.fillStyle = "black";
     
     for(axios in listNumbers){
-        ctx.fillRect((20 * axios), listNumbers[axios], 5, -listNumbers[axios] )
+        ctx.fillRect((20 * axios), listNumbers[axios], 5, 1000-listNumbers[axios] )
     }
 }
 
@@ -40,7 +40,7 @@ function bubbleSort() {
 
         for(let i = 1; i < 100; i ++){
             
-            if(listNumbers[i - 1] > listNumbers[i]){
+            if(listNumbers[i - 1] < listNumbers[i]){
                 temp = listNumbers[i]
                 listNumbers[i] = listNumbers[i-1]
                 listNumbers[i -1] = temp
@@ -62,7 +62,7 @@ function selectionSort(){
             
         if(veriOrdenacao()) clearInterval()
             for(let j = n+1; j< listNumbers.length; j++){
-                if(listNumbers[j] < listNumbers[imenor]){
+                if(listNumbers[j] > listNumbers[imenor]){
                     imenor = j
                 }
             }
