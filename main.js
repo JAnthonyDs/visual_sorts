@@ -9,6 +9,7 @@ let listNumbers = []
 
 function init(){
     clearInterval(bubble)
+    clearInterval(selection)
     listNumbers = []
     for(let i = 0; i < 50; i++){
         let number = Math.floor(Math.random() * 800)
