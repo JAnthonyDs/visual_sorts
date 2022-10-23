@@ -4,12 +4,12 @@ var ctx = canvas.getContext('2d')
 var init_button = document.getElementById('init')
 var bubble_button = document.getElementById('bubble')
 var selection_button = document.getElementById('selection')
+var insertion_button = document.getElementById('insertion')
 
 let listNumbers = []
 
 function init(){
-    clearInterval(bubble)
-    clearInterval(selection)
+    stopAll()
     listNumbers = []
     for(let i = 0; i < 50; i++){
         let number = Math.floor(Math.random() * 800)
@@ -21,6 +21,12 @@ function init(){
     
     redraw()
     
+}
+
+function stopAll(){
+    clearInterval(insertion)
+    clearInterval(bubble)
+    clearInterval(selection)
 }
 
 function redraw() {
@@ -38,7 +44,7 @@ function bubbleSort() {
     bubble = setInterval( () => {
         if(veriOrdenacao()) clearInterval(bubble);
 
-        for(let i = 1; i < 100; i ++){
+        for(let i = 1; i < listNumbers.length; i ++){
             
             if(listNumbers[i - 1] < listNumbers[i]){
                 temp = listNumbers[i]
@@ -81,6 +87,25 @@ function selectionSort(){
     
 }
 
+function insertionSort(){
+    let n = 1
+    insertion = setInterval(() => {
+        if(n >= listNumbers.length) clearInterval(insertion)
+
+        for(let i = 0; i < n;i++){
+            if(listNumbers[i] < listNumbers[n]){
+                temp = listNumbers[n]
+                listNumbers[n] = listNumbers[i]
+                listNumbers[i] = temp
+            }
+        }
+        redraw()
+
+        n++;
+
+    },100)
+}
+
 function veriOrdenacao(){
     for(let i = 0; i < listNumbers.length -1; i ++){
         if(listNumbers[i] > listNumbers[i +1]){
@@ -101,6 +126,10 @@ bubble_button.addEventListener('click', () => {
 
 selection_button.addEventListener('click', () => {
     selectionSort()
+})
+
+insertion_button.addEventListener('click', () => {
+    insertionSort()
 })
 
 
