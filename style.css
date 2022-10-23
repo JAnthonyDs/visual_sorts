@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    height: 90vh;
+    width: 95vw;
+    /* align-items: center; */
+    margin-top: 2%;
+    justify-content: center;
+}
+
+canvas {
+    width: 100%;
+    max-height: 800px;
+    border: 1px solid black;
+}
+
+.btn {
+    padding-top: 10px;
+    
+}
