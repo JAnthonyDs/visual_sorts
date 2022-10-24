@@ -7,17 +7,31 @@ var selection_button = document.getElementById('selection')
 var insertion_button = document.getElementById('insertion')
 
 let listNumbers = []
+var higherNumber
+var smallestNumber
 
 function init(){
     stopAll()
     listNumbers = []
+    higherNumber = 900
+    smallestNumber = 0
     for(let i = 0; i < 50; i++){
         let number = Math.floor(Math.random() * 800)
         if(!(listNumbers.includes(number))){
             listNumbers.push(number)
-        }
-        
+            if(number < higherNumber){
+                higherNumber = number
+                
+            }
+
+            if(number > smallestNumber){
+                smallestNumber = number
+            }
+            
+        }        
     }
+        
+    console.log('H = '+higherNumber)
     
     redraw()
     
@@ -32,15 +46,23 @@ function stopAll(){
 function redraw() {
     
     ctx.clearRect(0,0,canvas.width,canvas.height)
-    ctx.fillStyle = "black";
     
+   
     for(axios in listNumbers){
+        if(listNumbers[axios] == higherNumber){
+            ctx.fillStyle = "blue";
+        }else if(listNumbers[axios] == smallestNumber){
+            ctx.fillStyle = "red"
+        }
+        else{
+            ctx.fillStyle = "black"
+        }
         ctx.fillRect((20 * axios), listNumbers[axios], 5, 1000-listNumbers[axios] )
     }
 }
 
 function bubbleSort() {
-
+    
     bubble = setInterval( () => {
         if(veriOrdenacao()) clearInterval(bubble);
 
