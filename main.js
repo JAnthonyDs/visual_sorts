@@ -5,6 +5,7 @@ var init_button = document.getElementById('init')
 var bubble_button = document.getElementById('bubble')
 var selection_button = document.getElementById('selection')
 var insertion_button = document.getElementById('insertion')
+// var quick_button = document.getElementById('quick')
 
 let listNumbers = []
 var higherNumber
@@ -15,7 +16,7 @@ function init(){
     listNumbers = []
     higherNumber = 900
     smallestNumber = 0
-    for(let i = 0; i < 50; i++){
+    for(let i = 0; i < 730; i++){
         let number = Math.floor(Math.random() * 800)
         if(!(listNumbers.includes(number))){
             listNumbers.push(number)
@@ -30,8 +31,6 @@ function init(){
             
         }        
     }
-        
-    console.log('H = '+higherNumber)
     
     redraw()
     
@@ -41,6 +40,7 @@ function stopAll(){
     clearInterval(insertion)
     clearInterval(bubble)
     clearInterval(selection)
+    // clearInterval(quick)
 }
 
 function redraw() {
@@ -57,7 +57,7 @@ function redraw() {
         else{
             ctx.fillStyle = "black"
         }
-        ctx.fillRect((20 * axios), listNumbers[axios], 5, 1000-listNumbers[axios] )
+        ctx.fillRect((2 * axios), listNumbers[axios], 1, 1000-listNumbers[axios] )
     }
 }
 
@@ -128,6 +128,71 @@ function insertionSort(){
     },100)
 }
 
+// QuickSort
+
+function quickInit(){
+    quickSort(listNumbers,0,listNumbers.length -1)
+}
+
+function quickSort(vetor,inicio,fim){
+        if(inicio < fim){
+            var p = particao(vetor, inicio,fim)
+            console.log(p)
+            quickSort(vetor,inicio,p-1)
+            quickSort(vetor,p+1,fim)
+        }
+        
+}
+
+
+
+function particao(lista,inicio,fim){
+    let pivot = lista[fim]
+    let pont_menor = inicio
+    let n = inicio
+    let aux2 = inicio
+    
+    
+    // console.log('pont_menor: ',pont_menor)
+
+    for(i = inicio; i <= fim + 1; i++){
+        if(lista[i] >= pivot){
+            //  aux = lista[pont_menor]
+            //  lista[pont_menor] = lista[i]
+            //  lista[i] = aux
+             pont_menor += 1
+    //         // n = i
+        }
+    }
+
+    redraw()
+
+    quick = setInterval(() => {
+        if(n >= fim + 100) clearInterval(quick)
+        
+        else{
+            if(lista[n] >= pivot){
+                aux = lista[aux2]
+                lista[aux2] = lista[n]
+                lista[n] = aux
+                aux2 += 1
+            }
+        }
+
+        redraw()
+
+        n++;
+         
+     }, 100)
+
+    
+    // console.log('pont_menor: ',pont_menor)
+    
+    return pont_menor - 1
+}
+
+//
+
 function veriOrdenacao(){
     for(let i = 0; i < listNumbers.length -1; i ++){
         if(listNumbers[i] > listNumbers[i +1]){
@@ -154,4 +219,6 @@ insertion_button.addEventListener('click', () => {
     insertionSort()
 })
 
-
+// quick_button.addEventListener('click', () => {
+//     quickInit()
+// })
